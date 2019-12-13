@@ -69,12 +69,20 @@ import ReactDOM from 'react-dom';
     event.preventDefault();
  
     // Find the text field via the React ref
+
     const currentWeight = parseInt(ReactDOM.findDOMNode(this.refs.textInput1).value.trim());
     const dailyCalorieIntake = parseInt(ReactDOM.findDOMNode(this.refs.textInput2).value.trim()/3500);
     const calorieLoss = parseInt(ReactDOM.findDOMNode(this.refs.textInput3).value.trim()/3500);
     const daysSelected = parseInt(ReactDOM.findDOMNode(this.refs.textInput5).value.trim());
     const newWeight = currentWeight + daysSelected*dailyCalorieIntake + daysSelected*calorieLoss;
     const text = "Your new weight after " + daysSelected + " days: " + newWeight + " lbs";
+
+    const currentWeight = ReactDOM.findDOMNode(this.refs.textInput1).value.trim();
+    const dailyCalorieIntake = ReactDOM.findDOMNode(this.refs.textInput2).value.trim()/3500;
+    const calorieLoss = ReactDOM.findDOMNode(this.refs.textInput3).value.trim()/3500;
+    const newWeight = parseInt(currentWeight) + parseInt(dailyCalorieIntake) + parseInt(calorieLoss);
+    const text = "Your new weight is: " + newWeight + " lbs";
+
  
     Tasks.insert({
       text,
@@ -84,6 +92,7 @@ import ReactDOM from 'react-dom';
     // Clear form
     ReactDOM.findDOMNode(this.refs.textInput4).value = '';
   }
+
 
   handleSubmit5(event) {
     event.preventDefault();
@@ -155,8 +164,13 @@ import ReactDOM from 'react-dom';
           </form>
         </header>
 
+
         <form className="new-task">
         <button id="weight" onClick={this.handleSubmit4.bind(this)}>Calculate my future weight</button>
+
+        <form className="new-task" onClick={this.handleSubmit4.bind(this)} >
+        <button id="weight">Calculate my future weight</button>
+
             <input
               type="button"
               ref="textInput4"
