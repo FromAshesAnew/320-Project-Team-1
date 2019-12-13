@@ -6,6 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Tasks } from '../api/tasks.js';
 import ReactDOM from 'react-dom';
+
+
  
 // App component - represents the whole app
  class App extends Component {
@@ -29,7 +31,7 @@ import ReactDOM from 'react-dom';
  
     // Find the text field via the React ref
     const text = "Daily Calorie Intake: " + ReactDOM.findDOMNode(this.refs.textInput2).value.trim() + " Calories";
- 
+
     Tasks.insert({
       text,
       createdAt: new Date(), // current time
@@ -52,6 +54,25 @@ import ReactDOM from 'react-dom';
  
     // Clear form
     ReactDOM.findDOMNode(this.refs.textInput3).value = '';
+  }
+
+  handleSubmit4(event) {
+    event.preventDefault();
+ 
+    // Find the text field via the React ref
+    const currentWeight = ReactDOM.findDOMNode(this.refs.textInput1).value.trim();
+    const dailyCalorieIntake = ReactDOM.findDOMNode(this.refs.textInput2).value.trim()/3500;
+    const calorieLoss = ReactDOM.findDOMNode(this.refs.textInput3).value.trim()/3500;
+    const newWeight = parseInt(currentWeight) + parseInt(dailyCalorieIntake) + parseInt(calorieLoss);
+    const text = "Your new weight is: " + newWeight + " lbs";
+ 
+    Tasks.insert({
+      text,
+      createdAt: new Date(), // current time
+    });
+ 
+    // Clear form
+    ReactDOM.findDOMNode(this.refs.textInput4).value = '';
   }
 
   renderTasks() {
@@ -92,16 +113,25 @@ import ReactDOM from 'react-dom';
             />
           </form>
         </header>
+
+        <form className="new-task" onClick={this.handleSubmit4.bind(this)} >
+        <button id="weight">Calculate my future weight</button>
+            <input
+              type="button"
+              ref="textInput4"
+            />
+          </form>
+        
         
  
         <ul>
           {this.renderTasks()}
         </ul>
-        <button id="weight">Calculate my future weight</button>
       </div>
     );
   }
 }
+
 
 export default withTracker(() => {
   return {
