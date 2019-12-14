@@ -12,4 +12,4 @@ This project is a web app that calculates the new weight of the user based off o
 
 CURRENT STATUS:
 ---------------
-Just Finished Design Phase.
+"Finished" as far as CS 320 goes.
